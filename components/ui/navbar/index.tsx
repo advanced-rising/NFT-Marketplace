@@ -2,6 +2,7 @@
 
 import { Disclosure, Menu } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useAccount } from 'components/hooks';
 import Link from 'next/link';
 import ActiveLink from '../link';
 
@@ -15,6 +16,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
+  const { data, isValidating, error } = useAccount('Some Random Params');
+  console.log(data);
+
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (
@@ -34,12 +38,20 @@ export default function Navbar() {
               </div>
               <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
                 <div className='flex-shrink-0 flex items-center'>
-                  <img className='hidden lg:block h-10 w-auto' src='/images/page_logo.png' alt='Workflow' />
+                  <img
+                    className='hidden lg:block h-10 w-auto'
+                    src='/images/page_logo.png'
+                    alt='Workflow'
+                  />
                 </div>
                 <div className='hidden sm:block sm:ml-6'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
-                      <ActiveLink key={item.name} href={item.href} activeClass='bg-gray-900 text-white'>
+                      <ActiveLink
+                        key={item.name}
+                        href={item.href}
+                        activeClass='bg-gray-900 text-white'
+                      >
                         <a
                           className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                           aria-current={item.current ? 'page' : undefined}
@@ -76,7 +88,14 @@ export default function Navbar() {
                     <Menu.Item>
                       {({ active }) => (
                         <Link href='/profile'>
-                          <a className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>Your Profile</a>
+                          <a
+                            className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
+                          >
+                            Your Profile
+                          </a>
                         </Link>
                       )}
                     </Menu.Item>
@@ -94,7 +113,9 @@ export default function Navbar() {
                   as='a'
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    item.current
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
