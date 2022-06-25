@@ -2,7 +2,7 @@
 
 import { Disclosure, Menu } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { useAccount } from 'components/hooks';
+import { useAccount } from '@hooks/web3';
 import Link from 'next/link';
 import ActiveLink from '../link';
 
@@ -16,8 +16,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
-  const { data, isValidating, error } = useAccount('Some Random Params');
-  console.log(data);
+  const { account } = useAccount();
+
+  console.log(account.data);
 
   return (
     <Disclosure as='nav' className='bg-gray-800'>
