@@ -6,7 +6,7 @@ type AccountHookFactory = CryptoHookFactory<string>;
 export type UseAccountHook = ReturnType<AccountHookFactory>;
 
 export const hookFactory: AccountHookFactory =
-  ({ provider }) =>
+  ({ provider, ethereum }) =>
   () => {
     const swrRes = useSWR(
       provider ? 'web3/useAccount' : null,
@@ -24,6 +24,17 @@ export const hookFactory: AccountHookFactory =
         revalidateOnFocus: false,
       }
     );
+    // connect metamask
+    const connect = async () => {
+      try {
+        ethereum?.request({ method: 'eth_requestAccounts' });
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
-    return swrRes;
+    return {
+      ...swrRes,
+      connect,
+    };
   };
