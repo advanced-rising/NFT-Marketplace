@@ -89,6 +89,10 @@ contract NftMarket is ERC721URIStorage {
     return items;
   }
 
+    function burnToken(uint tokenId) public {
+    _burn(tokenId);
+  }
+
   function mintToken(string memory tokenURI, uint256 price) public payable returns (uint256) {
     require(!tokenURIExists(tokenURI), 'Token URI already exists');
     require(msg.value == listingPrice, 'Price must be equal to listing price');
