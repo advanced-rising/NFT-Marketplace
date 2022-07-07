@@ -138,12 +138,13 @@ const NftCreate: NextPage = () => {
         value: ethers.utils.parseEther((0.025).toString()),
       });
 
-      await toast.promise(tx!.wait(), {
-        pending: 'Minting Nft Token',
-        success: 'Nft has ben created',
-        error: 'Minting error',
-      });
-      router.push('/');
+      await toast
+        .promise(tx!.wait(), {
+          pending: 'Minting Nft Token',
+          success: 'Nft has ben created',
+          error: 'Minting error',
+        })
+        .then(() => router.push('/'));
     } catch (e: any) {
       console.error(e.message);
     }
