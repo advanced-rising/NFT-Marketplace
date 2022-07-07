@@ -12,12 +12,10 @@ import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import { useNetwork } from '@hooks/web3';
 import { ExclamationIcon } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
 
 const ALLOWED_FIELDS = ['name', 'description', 'image', 'attributes'];
 
 const NftCreate: NextPage = () => {
-  const router = useRouter();
   const { ethereum, contract } = useWeb3();
   const { network } = useNetwork();
   const [nftURI, setNftURI] = useState('');
@@ -139,12 +137,10 @@ const NftCreate: NextPage = () => {
       });
 
       await toast.promise(tx!.wait(), {
-        pending: 'Uploading metadata',
-        success: 'Metadata uploaded',
-        error: 'Metadata upload error',
+        pending: 'Minting Nft Token',
+        success: 'Nft has ben created',
+        error: 'Minting error',
       });
-
-      router.push('/');
     } catch (e: any) {
       console.error(e.message);
     }
