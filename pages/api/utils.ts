@@ -7,6 +7,7 @@ import { NftMarketContract } from '@_types/nftMarketContract';
 
 const NETWORKS = {
   '5777': 'Ganache',
+  '3': 'Ropsten',
 };
 
 type NETWORK = typeof NETWORKS;
